@@ -198,7 +198,7 @@ D.scenes = [
   settingsNote: 'Leg dir zusätzlich „Tauchen Zeitlupe“ mit 4K 16:9 | 100 | W an (4-fache Zeitlupe für Mantas und Fischschwärme). Zieh beide ganz nach oben in die Liste (Bearbeiten-Symbol oben rechts, halten und ziehen), dann erreichst du sie mit den Tasten am schnellsten. WLAN, Sprachsteuerung und Signaltöne für den Tauchgang ausschalten: Funk geht unter Wasser ohnehin nicht.',
   mount: [
     'Kurzer Griff unten am Gehäuse, Stick ganz eingefahren. So filmst du ruhig und mit etwas Abstand zum Körper.',
-    'Immer eine Sicherungsleine: ans Handgelenk oder mit Karabiner ans Jacket (Tarierweste). Eine verlorene Leih-GoPro sinkt sofort.',
+    'Immer eine Sicherungsleine: ans Handgelenk oder mit Karabiner ans Jacket (Tarierweste). Eine verlorene Miet-GoPro sinkt sofort.',
     'Brusthalterung am Jacket geht für freihändige Riff-Aufnahmen mit Händen und Instrumenten im Bild. Mit Kopfgurt unter der Maske filmst du blind.'
   ],
   tips: [
@@ -478,9 +478,9 @@ D.ideas = [
 D.checksIntro = 'Abhaken, was erledigt ist. Die Häkchen bleiben auf deinem Handy gespeichert.';
 D.checklists = [
 { id: 'abflug', title: 'Heute vor dem Abflug', when: 'Einmal erledigen, solange du noch WLAN und Steckdose hast.', items: [
-  ['Mit dem Besitzer klären', 'Darf ich Einstellungen und Firmware ändern? Sind Daten auf der Karte, die bleiben müssen? Vor der Rückgabe: Einstellungen › Zurücksetzen › Voreinstellungen zurücksetzen.'],
+  ['Grover-Miete prüfen', 'Im Grover-Konto nachsehen, welche Grover-Care-Option du hast und wie du einen Schaden meldest. Ist alles Zubehör da? Ein paar Fotos vom Zustand von Kamera und Gehäuse machen.'],
   ['Quik-App installieren und Kamera koppeln', 'Google Play: GoPro Quik. Einmal drahtlos und einmal per USB-C-Kabel übertragen testen.'],
-  ['Firmware über Quik prüfen', 'Nur mit dem Okay des Besitzers aktualisieren. Akku mindestens 20 %, während des Updates nichts drücken.'],
+  ['Firmware über Quik aktualisieren', 'Quik bietet ein Update nach dem Koppeln an. Akku mindestens 20 %, Kamera am Ladegerät, während des Updates nichts drücken.'],
   ['Auf Profi-Bedienfunktionen umschalten', 'Dashboard › nach links wischen › Steuerung. Ab Werk steht die Kamera auf Einfach, dann fehlen Voreinstellungen und Protune.'],
   ['Antiflimmern 50 Hz', 'Einstellungen › Video › Antiflimmern. Passt zum Stromnetz in Sri Lanka und auf den Malediven. Die Bildraten heißen dann 25, 50, 100, 200.'],
   ['Zeitzone einstellen', 'Einstellungen › Datum + Uhrzeit: Sri Lanka UTC+5:30, ab 8. November Malediven UTC+5. Dann sortieren sich die Clips richtig.'],
@@ -528,6 +528,15 @@ D.checklists = [
   ['Originale auf der Karte lassen', 'Erst löschen, wenn sie gesichert sind. Lieber die Karte wechseln.'],
   ['Alle Akkus, Powerbank und Handy laden'],
   ['Kamera und Halterungen von Sand und Salz befreien']
+] },
+{ id: 'rueckgabe', title: 'Vor der Rückgabe an Grover', items: [
+  ['Alle Aufnahmen gesichert', 'Auf Handy, Computer oder Festplatte. Erst danach die Karte formatieren.'],
+  ['Eigene Speicherkarte entnehmen', 'Falls die Karte dir gehört. Gehört sie zur Miete: formatieren und drin lassen.'],
+  ['Auf Werkseinstellungen zurücksetzen', 'Einstellungen › Zurücksetzen › Auf Werkseinstellungen zurücksetzen. Löscht Voreinstellungen, Kopplungen und die Abo-Registrierung, Karteninhalt und Firmware bleiben. Grover löscht die Daten zusätzlich selbst.'],
+  ['Kamera in Quik entfernen', 'Und in den Bluetooth- und WLAN-Listen des Handys „vergessen“.'],
+  ['Quik-Abo kündigen, falls abgeschlossen', 'Bei Abschluss über die App: Google Play › Abos.'],
+  ['Alles Zubehör vollständig und sauber', 'Gehäuse, Filter, Halterungen, Akkus, Kabel. Salz und Sand abspülen und trocknen lassen.'],
+  ['Schäden vorher bei Grover melden', 'Über das Grover-Konto, bevor du zurückschickst.']
 ] }
 ];
 
@@ -569,6 +578,6 @@ D.basics = [
   { t: 'Hochkant für Reels: welches Format?', d: '<p>Drei Wege zum 9:16-Clip, mit unterschiedlich viel Reserve für ein scharfes 1080 x 1920:</p><ul class="bul"><li><b>5.3K 8:7</b>: rund 2,4-fache Reserve. Du entscheidest erst in Quik, ob quer oder hochkant, und kannst noch heranzoomen. Die flexibelste Wahl.</li><li><b>4K 9:16</b>: direkt hochkant, Kamera bleibt quer am Griff. 2-fache Reserve, aber nur Weit, nur 8-Bit, keine Horizontsperre.</li><li><b>4K 8:7</b>: rund 1,75-fache Reserve, dafür mit 50 Bildern pro Sekunde.</li><li><b>4K 16:9</b>: hochkant ausgeschnitten bleibt fast nichts übrig. 2.7K und 1080p werden dabei unscharf.</li></ul><p>Für hochkant in Zeitlupe lieber 4K 100 als 2.7K 200. Oder die Kamera einfach hochkant drehen, die Anzeige dreht mit. Einstellungen lassen sich dann aber nicht ändern.</p>' },
   { t: 'Protune: muss ich das anfassen?', d: '<p>Für den Anfang nicht. [[protune|Protune]] lohnt sich bei drei Situationen auf deiner Reise:</p><ul class="bul"><li>Tauchen: [[iso|ISO]]-Grenzen, Bel.-Korr. und Schärfe festlegen.</li><li>Gleißende Sonne, Sand, Wasser: [[ev|Bel.-Korr.]] auf -0,5.</li><li>Wind und Fahrt: Windgeräuschminderung auf Auto.</li></ul><p>Den Rest kann die Automatik besser, als man glaubt. Schneller als Protune: Display gedrückt halten für die Belichtungssteuerung.</p>' },
   { t: 'Farbe und Bittiefe für den Handyschnitt', d: '<p>Weil du in Quik am Handy schneidest: Profil Standard, [[farbe|Farbe]] Natürlich (oder die kräftigere Variante), [[bittiefe|Bittiefe]] 10-Bit unter Einstellungen › Video, falls dein Handy das flüssig abspielt. [[log|GP-Log]] meiden, das braucht Farbkorrektur am Computer und sieht in Quik grau aus.</p>' },
-  { t: 'Vom Clip zum Reel in Quik', d: '<ol class="steps"><li>In Quik verbinden (per USB-C-Kabel am schnellsten) und zuerst die Clips mit HiLight importieren. Quik erkennt auch selbst Höhepunkte.</li><li>Einzelnen Clip öffnen, Format 9:16 wählen und den Ausschnitt mit den Fingern verschieben.</li><li>Mit dem Geschwindigkeits-Werkzeug nur die Aktion verlangsamen: 50 Bilder pro Sekunde ergeben 2-fach, 100 ergeben 4-fach, 200 ergeben 8-fach.</li><li>Unter Wasser etwas wärmer stellen, nicht übertreiben.</li><li>Für ein Reel aus mehreren Clips: 6 bis 15 Clips auswählen und die automatische Bearbeitung nutzen. Danach Musik tauschen, Clips auf 1 bis 2 Sekunden kürzen, den stärksten zuerst.</li><li>Speichern und in 1080p aufs Handy exportieren, das reicht für Reels und Shorts.</li></ol><p class="muted small">Manche Themen und Musikstücke (mit Blitz-Symbol) brauchen ein Abo. Ein Abo hängt am GoPro-Konto, nicht an der Kamera.</p>' },
+  { t: 'Vom Clip zum Reel in Quik', d: '<ol class="steps"><li>In Quik verbinden (per USB-C-Kabel am schnellsten) und zuerst die Clips mit HiLight importieren. Quik erkennt auch selbst Höhepunkte.</li><li>Einzelnen Clip öffnen, Format 9:16 wählen und den Ausschnitt mit den Fingern verschieben.</li><li>Mit dem Geschwindigkeits-Werkzeug nur die Aktion verlangsamen: 50 Bilder pro Sekunde ergeben 2-fach, 100 ergeben 4-fach, 200 ergeben 8-fach.</li><li>Unter Wasser etwas wärmer stellen, nicht übertreiben.</li><li>Für ein Reel aus mehreren Clips: 6 bis 15 Clips auswählen und die automatische Bearbeitung nutzen. Danach Musik tauschen, Clips auf 1 bis 2 Sekunden kürzen, den stärksten zuerst.</li><li>Speichern und in 1080p aufs Handy exportieren, das reicht für Reels und Shorts.</li></ol><p class="muted small">Alles mit Blitz-Symbol (Premium-Themen, Musik, Filter, je nach Stand auch das Geschwindigkeits-Werkzeug) lässt sich nur mit Abo speichern. In der App gibt es die Stufen Quik, Premium und Premium+, Premium kostete im Oktober 2026 5,99 € im Monat und ist monatlich kündbar. Projekte am besten noch innerhalb der Abo-Laufzeit fertig exportieren.</p>' },
   { t: 'Einfache oder Profi-Bedienfunktionen?', d: '<p>Ab Werk steht die Kamera auf [[pro|Einfache Bedienfunktionen]]: übersichtlich, aber ohne Voreinstellungen und Protune. Diese App geht von Profi aus. Umschalten: [[dashboard|Dashboard]] öffnen (vom oberen Rand nach unten wischen), nach links wischen, „Steuerung“ antippen.</p>' }
 ];
