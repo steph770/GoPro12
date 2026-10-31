@@ -1,0 +1,16 @@
+{
+  "name": "H12 Begleiter",
+  "short_name": "H12",
+  "description": "Bedienhilfe, Szenen-Rezepte, Experimente und Checklisten für die GoPro HERO12 Black",
+  "lang": "de",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#E4E9EC",
+  "theme_color": "#0A4D68",
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "icon-512-maskable.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
