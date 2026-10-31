@@ -90,7 +90,7 @@ p { margin: 0 0 12px; max-width: 66ch; }
 .cam-shutter::after, .cam-mode::after { content: ""; position: absolute; inset: -12px; }
 .cam-mode::after { inset: -12px -2px -12px -14px; }
 .screen { position: relative; aspect-ratio: 16 / 9; border-radius: 10px; overflow: hidden; background: #000; touch-action: pan-y;
-  font-family: var(--wide); font-stretch: 82%; color: #fff; user-select: none; -webkit-user-select: none; container-type: inline-size; }
+  font-family: var(--wide); font-stretch: 82%; color: #fff; user-select: none; -webkit-user-select: none; -webkit-touch-callout: none; container-type: inline-size; }
 .screen .scene { position: absolute; inset: 0; width: 100%; height: 100%; }
 .screen .vign { position: absolute; inset: 0; background: linear-gradient(rgba(0,0,0,.42), transparent 24%, transparent 66%, rgba(0,0,0,.55)); pointer-events: none; }
 .hud { position: absolute; display: flex; align-items: center; gap: .4em; padding: .25em .45em; border-radius: .45em; border: 0; background: none; color: #fff;

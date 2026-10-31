@@ -136,7 +136,7 @@ function renderKamera(sub) {
   const segs = [['bildschirm', 'Bildschirm'], ['gesten', 'Wischen'], ['tasten', 'Tasten'], ['sprache', 'Sprachbefehle'], ['grundlagen', 'Grundwissen']];
   view.innerHTML = `
     <h1>Deine HERO12 Black</h1>
-    <p class="lead">Tippe auf ein Feld im Display, wische darüber oder drücke die Tasten am Gehäuse.</p>
+    <p class="lead">Ein Nachbau des hinteren Touchscreens. Die gelben Nummern führen zu den Erklärungen darunter.</p>
     <div id="camWrap">${screenHTML(camState, { nums: tab === 'bildschirm', buttons: true })}</div>
     <div class="cam-hint"><span id="camMsg">${esc(D.cam.hint)}</span></div>
     <div class="seg" role="group" aria-label="Ansicht">${segs.map(([k, l]) => `<button data-seg="${k}" aria-pressed="${k === tab}">${l}</button>`).join('')}</div>
