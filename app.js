@@ -25,7 +25,7 @@ $('#themeBtn').addEventListener('click', () => {
 /* ---------- Textmarkup: [[schluessel|Anzeige]] wird zum antippbaren Begriff ---------- */
 const rich = (s) => String(s || '').replace(/\[\[([a-z0-9_-]+)(?:\|([^\]]+))?\]\]/gi, (m, k, label) => {
   const t = D.terms[k];
-  return `<button class="term" data-t="${k}">${label || (t ? t.t : k)}</button>`;
+  return `<span class="term" role="button" tabindex="0" data-t="${k}">${label || (t ? t.t : k)}</span>`;
 });
 
 /* ---------- Bottom-Sheet ---------- */
@@ -56,7 +56,11 @@ function termSheet(k) {
 }
 document.addEventListener('click', (e) => {
   const b = e.target.closest('.term');
-  if (b) { e.preventDefault(); termSheet(b.dataset.t); }
+  if (b) { e.preventDefault(); e.stopPropagation(); termSheet(b.dataset.t); }
+}, true);
+document.addEventListener('keydown', (e) => {
+  const b = e.target.closest && e.target.closest('.term');
+  if (b && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); termSheet(b.dataset.t); }
 });
 
 /* ---------- Symbole fürs Display ---------- */
@@ -112,10 +116,11 @@ function screenHTML(cfg, opts = {}) {
       <div class="vign"></div>
       <button class="hud" ${id('modus')} style="left:2.5%;top:3%">${ico(c.mode)}${n(1)}</button>
       <button class="hud rec-time" ${id('rest')} style="left:50%;top:3%;transform:translateX(-50%)">${c.rec ? '<span class="rec-dot"></span>' + esc(c.recTime || '00:00:12') : esc(c.remaining)}${n(2)}</button>
-      <button class="hud" ${id('akku')} style="right:2.5%;top:3%">${esc(c.battery)}%${ico('akku', c.battery)}${n(3)}</button>
-      ${sc.map((s, i) => `<button class="hud sc" ${id('sc:' + s)} style="${pos[i] || ''}" aria-label="Kurzbefehl ${esc((D.cam.shortcuts[s] || {}).t || s)}">${ico((D.cam.shortcuts[s] || {}).icon || 'stern')}</button>`).join('')}
-      ${opts.nums && sc.length ? `<span class="hud" style="left:2.5%;bottom:30%;pointer-events:none">${n(5)}</span>` : ''}
+      <button class="hud" ${id('akku')} style="right:2.5%;top:3%">${esc(c.battery)}%${ico('akku', c.battery)}${n(5)}</button>
+      ${sc.map((s, i) => `<button class="hud sc" ${id('sc:' + s)} style="${pos[i] || ''}" aria-label="Shortcut ${esc((D.cam.shortcuts[s] || {}).t || s)}">${ico((D.cam.shortcuts[s] || {}).icon || 'stern')}</button>`).join('')}
+      ${opts.nums && sc.length ? `<span class="hud" style="left:4%;bottom:23%;pointer-events:none">${n(3)}</span>` : ''}
       <button class="hud pill" ${id('preset')}><span class="pname">${ico(c.mode)}${esc(c.preset)}${n(4)}</span><span class="pset">${esc(c.settings)}</span></button>
+      <div class="expo" aria-hidden="true"><span>OBJEKTMESSUNG</span></div>
       <div class="ov" data-ov="dash"></div>
       <div class="ov up" data-ov="media"></div>
       <div class="ov up" data-ov="presets"></div>
@@ -185,7 +190,7 @@ function fieldSheet(key) {
 }
 
 function overlayHTML(kind) {
-  if (kind === 'dash') return `<div class="ov-title">${esc(D.cam.dashTitle)}</div><div class="ov-grid">${D.cam.dash.map((d) => `<button class="ov-tile" data-dash="${d.key}">${ico(d.icon)}<span>${esc(d.t)}</span></button>`).join('')}</div>`;
+  if (kind === 'dash') return `<div class="ov-title">${esc(D.cam.dashTitle)}</div><div class="ov-grid dashgrid">${D.cam.dash.map((d, i) => `<button class="ov-tile ${i >= 7 ? 'page' : ''}" data-dash="${d.key}">${ico(d.icon)}<span>${esc(d.t)}</span></button>`).join('')}</div>`;
   if (kind === 'media') return `<div class="ov-title">Medien</div><div class="ov-grid">${[1, 2, 3, 4, 5, 6, 7, 8].map((i) => `<div class="ov-tile" style="aspect-ratio:16/10;padding:0;overflow:hidden;opacity:${1 - i * .06}">${art(['reef', 'safari', 'train', 'hills', 'stars', 'walk', 'trail', 'reef'][i - 1])}</div>`).join('')}</div>`;
   if (kind === 'presets') {
     const m = D.cam.modes[camState ? camState.modeIdx : 0];
@@ -194,6 +199,7 @@ function overlayHTML(kind) {
   return '';
 }
 function showOverlay(wrap, kind) {
+  $('.screen', wrap)?.classList.remove('expo-on');
   $$('.ov', wrap).forEach((o) => { if (o.dataset.ov !== kind) o.classList.remove('show'); });
   const ov = $(`.ov[data-ov="${kind}"]`, wrap);
   if (!ov) return;
@@ -208,6 +214,7 @@ function showOverlay(wrap, kind) {
     e.stopPropagation();
     const m = D.cam.modes[camState.modeIdx];
     const p = m.presets[+b.dataset.preset];
+    if (!p[1]) { setMsg(p[2]); return; }
     m.preset = p[0]; m.settings = p[1];
     redrawCam(false);
     setMsg(`Voreinstellung „${p[0]}“ gewählt. ${p[2] || ''}`);
@@ -227,6 +234,8 @@ function gesture(k, fromList) {
     const nums = $('.seg button[aria-pressed="true"]')?.dataset.seg === 'bildschirm';
     redrawCam(nums);
   } else if (k === 'pill') showOverlay(wrap, 'presets');
+  else if (k === 'tap') { hideOverlays(wrap); $('.screen', wrap).classList.toggle('nohud'); }
+  else if (k === 'hold') { hideOverlays(wrap); const s = $('.screen', wrap); s.classList.remove('nohud'); s.classList.add('expo-on'); clearTimeout(gesture.t); gesture.t = setTimeout(() => s.classList.remove('expo-on'), 3500); }
   if (g) setMsg(g.msg || g.short);
   if (fromList) wrap.scrollIntoView({ behavior: 'smooth', block: 'center' });
 }
@@ -246,17 +255,29 @@ function wireScreen(wrap, interactive) {
   $$('[data-key]', wrap).forEach((b) => b.addEventListener('click', () => keyPress(b.dataset.key)));
   if (!interactive) return;
   // Wischen
-  let x0 = null, y0 = null, t0 = 0;
-  scr.addEventListener('pointerdown', (e) => { x0 = e.clientX; y0 = e.clientY; t0 = Date.now(); });
+  let x0 = null, y0 = null, t0 = 0, held = false, holdT = null, swiped = false;
+  scr.addEventListener('pointerdown', (e) => {
+    x0 = e.clientX; y0 = e.clientY; t0 = Date.now(); held = false; swiped = false;
+    clearTimeout(holdT);
+    if (!e.target.closest('.hud, .ov.show')) holdT = setTimeout(() => { held = true; gesture('hold'); }, 650);
+  });
+  scr.addEventListener('pointermove', (e) => { if (x0 != null && Math.hypot(e.clientX - x0, e.clientY - y0) > 12) clearTimeout(holdT); });
   scr.addEventListener('pointerup', (e) => {
+    clearTimeout(holdT);
     if (x0 == null) return;
     const dx = e.clientX - x0, dy = e.clientY - y0; x0 = null;
     if (Math.max(Math.abs(dx), Math.abs(dy)) < 28 || Date.now() - t0 > 900) return;
-    if ($('.ov.show', scr)) { hideOverlays(scr); setMsg('Zurück zum Aufnahme-Bildschirm.'); return; }
+    swiped = true;
+    if ($('.ov.show', scr)) { hideOverlays(scr); setMsg('Zurück zum Aufnahmebildschirm.'); return; }
     if (Math.abs(dy) > Math.abs(dx)) gesture(dy > 0 ? 'down' : 'up');
     else gesture(dx < 0 ? 'left' : 'right');
   });
-  scr.addEventListener('click', () => { if (hideOverlays(scr)) setMsg('Zurück zum Aufnahme-Bildschirm.'); });
+  scr.addEventListener('pointercancel', () => { clearTimeout(holdT); x0 = null; });
+  scr.addEventListener('click', (e) => {
+    if (held || swiped || e.target.closest('.hud')) return;
+    if (hideOverlays(scr)) { setMsg('Zurück zum Aufnahmebildschirm.'); return; }
+    if (!e.target.closest('.ov')) gesture('tap');
+  });
 }
 function fieldSheetMaybe() { setMsg(D.cam.pillMsg); }
 

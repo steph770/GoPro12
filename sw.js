@@ -1,4 +1,4 @@
-const CACHE = 'h12-v1';
+const CACHE = 'h12-v2';
 const FILES = ['./', 'index.html', 'style.css', 'data.js', 'app.js', 'manifest.webmanifest', 'icon-192.png', 'icon-512.png', 'icon-512-maskable.png'];
 
 self.addEventListener('install', (e) => {
